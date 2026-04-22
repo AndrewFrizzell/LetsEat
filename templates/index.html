@@ -80,7 +80,7 @@
                 <div class="restaurant-card featured-card">
                     <h3>{{ chosen_restaurant.name }}</h3>
                     <p><strong>Cuisine:</strong> {{ chosen_restaurant.cuisine }}</p>
-                    <p><strong>Price:</strong> {{ chosen_restaurant.price }}</p>
+                    <p><strong>Price:</strong> {{ "$" * chosen_restaurant.price }}</p>
                     <p><strong>Rating:</strong> {{ chosen_restaurant.rating }}</p>
                     <p><strong>Distance:</strong> {{ chosen_restaurant.distance }} miles</p>
                     <p><strong>Location:</strong> {{ chosen_restaurant.location }}</p>
@@ -98,7 +98,7 @@
                         <div class="restaurant-card">
                             <h3>{{ restaurant.name }}</h3>
                             <p><strong>Cuisine:</strong> {{ restaurant.cuisine }}</p>
-                            <p><strong>Price:</strong> {{ restaurant.price }}</p>
+                            <p><strong>Price:</strong> {{ "$" * restaurant.price }}</p>
                             <p><strong>Rating:</strong> {{ restaurant.rating }}</p>
                             <p><strong>Distance:</strong> {{ restaurant.distance }} miles</p>
                             <p><strong>Location:</strong> {{ restaurant.location }}</p>
