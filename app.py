@@ -7,6 +7,7 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     selected_cuisine = request.args.get("cuisine", "")
+    max_price = request.args.get("price", "")
     pick_random = request.args.get("pick")
 
     filtered_restaurants = restaurants
@@ -16,6 +17,14 @@ def home():
         filtered_restaurants = [
             r for r in filtered_restaurants
             if r["cuisine"] == selected_cuisine
+        ]
+    
+    #filter price
+    if max_price:
+        max_price = int(max_price)
+        filtered_restaurants = [
+            r for r in filtered_restaurants
+            if r["price"] <= max_price
         ]
 
     cusisines = sorted(set(r["cuisine"] for r in restaurants))
@@ -32,6 +41,7 @@ def home():
          restaurants=filtered_restaurants,
          cuisines=cusisines,
          selected_cuisine=selected_cuisine,
+         max_price=str(max_price) if max_price else "",
          chosen_restaurant=chosen_restaurant
          )
 
