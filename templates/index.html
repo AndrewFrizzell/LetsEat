@@ -8,17 +8,37 @@
 </head>
 <body>
     <h1>Lets Eat</h1>
-    <p>Your app is running.</p>
+    <p>Choose a cuisin to filter restaurants.</p>
 
-    {% for restaurant in restaurants %}
-        <div class="restaurant-card">
-            <h2>{{ restaurant.name }}</h2>
-            <p><strong>Cuisine:</strong> {{ restaurant.cuisine }}</p>
-            <p><strong>Price:</strong> {{ restaurant.price }}</p>
-            <p><strong>Rating:</strong> {{ restaurant.rating }}</p>
-            <p><strong>Distance:</strong> {{ restaurant.distance }}</p>
-            <p><strong>Location:</strong> {{ restaurant.location }}</p>
-        </div>
-    {% endfor %}
+    <form method="GET" action="/">
+        <label for="cuisine">Cuisine</label>
+        <select name="cuisine" id="cuisine">
+            <option value="">All</option>
+            {% for cuisine in cuisines %}
+                <option value="{{ cuisine }}" {% if cuisine == selected_cuisine %}selected{% endif %}>
+                    {{ cuisine }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Filter</button>
+    </form>
+
+    <hr>
+
+    {% if restaurants %}
+        {% for restaurant in restaurants %}
+            <div class="restaurant-card">
+                <h2>{{ restaurant.name }}</h2>
+                <p><strong>Cuisine:</strong> {{ restaurant.cuisine }}</p>
+                <p><strong>Price:</strong> {{ restaurant.price }}</p>
+                <p><strong>Rating:</strong> {{ restaurant.rating }}</p>
+                <p><strong>Distance:</strong> {{ restaurant.distance }}</p>
+                <p><strong>Location:</strong> {{ restaurant.location }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No restaurants match this cuisine.</p>
+    {% endif %}
 </body>
 </html>
