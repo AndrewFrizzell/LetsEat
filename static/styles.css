@@ -1,132 +1,275 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
+
+    font-family: Arial, sans-serif;
+
     margin: 0;
-    background-color: #f4f6f8;
-    color: #222;
+
+    background: linear-gradient(to bottom, #f8fafc, #e2e8f0);
+
+    color: #1e293b;
+
 }
 
 .container {
+
     max-width: 1100px;
+
     margin: 0 auto;
+
     padding: 30px 20px 50px;
+
 }
 
 .page-header {
+
     text-align: center;
+
     margin-bottom: 30px;
+
 }
 
 .page-header h1 {
+
     margin-bottom: 10px;
-    font-size: 2.5rem;
+
+    font-size: 2.8rem;
+
+    color: #0f172a;
+
 }
 
 .page-header p {
+
     margin: 0;
-    color: #666;
-    font-size: 1rem;
+
+    color: #475569;
+
+    font-size: 1.05rem;
+
 }
 
 .filter-panel {
+
     background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+    padding: 24px;
+
+    border-radius: 16px;
+
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+
     margin-bottom: 30px;
+
 }
 
 .form-row {
+
     display: flex;
+
     flex-wrap: wrap;
-    gap: 15px;
+
+    gap: 16px;
+
     margin-bottom: 20px;
+
 }
 
 .form-group {
+
     flex: 1 1 200px;
+
     display: flex;
+
     flex-direction: column;
+
 }
 
 .form-group label {
+
     margin-bottom: 8px;
+
     font-weight: bold;
+
+    color: #334155;
+
 }
 
 .form-group select {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+
+    padding: 12px;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 10px;
+
     font-size: 1rem;
+
+    background-color: #f8fafc;
+
+}
+
+.form-group select:focus {
+
+    outline: none;
+
+    border-color: #2563eb;
+
 }
 
 .button-row {
+
     display: flex;
+
     gap: 12px;
+
     flex-wrap: wrap;
+
+}
+
+.button-row button,
+
+.reset-button {
+
+    padding: 11px 18px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-size: 1rem;
+
+    text-decoration: none;
+
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+
+}
+
+.button-row button:hover,
+
+.reset-button:hover {
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+
 }
 
 .button-row button {
-    padding: 10px 18px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1rem;
+
+    background-color: #2563eb;
+
+    color: white;
+
+    font-weight: 600;
+
 }
 
 .pick-button {
-    font-weight: bold;
-}
 
-.picked-section,
-.results-section {
-    margin-bottom: 30px;
-}
+    background-color: #f59e0b;
 
-.picked-section h2,
-.results-section h2 {
-    margin-bottom: 15px;
-}
+    color: white;
 
-.restaurant-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 18px;
-}
-
-.restaurant-card {
-    background: white;
-    padding: 18px;
-    margin-bottom: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-.restaurant-card h3 {
-    margin-top: 0;
-    margin-bottom: 12px;
-}
-
-.featured-card {
-    border: 2px solid #222;
-}
-
-.no-results {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .reset-button {
-    display: inline-block;
-    padding: 10px 18px;
-    background-color: #ccc;
-    color: black;
-    text-decoration: none;
-    border-radius: 8px;
-    font-size: 1rem;
+
+    background-color: #e2e8f0;
+
+    color: #0f172a;
+
+    font-weight: 600;
+
 }
 
-.reset-button:hover {
-    background-color: #bbb;
+.picked-section,
+
+.results-section {
+
+    margin-bottom: 30px;
+
+}
+
+.picked-section h2,
+
+.results-section h2 {
+
+    margin-bottom: 15px;
+
+    color: #0f172a;
+
+}
+
+.restaurant-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+
+    gap: 18px;
+
+}
+
+.restaurant-card {
+
+    background: white;
+
+    padding: 18px;
+
+    border-radius: 16px;
+
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+}
+
+.restaurant-card:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+
+}
+
+.restaurant-card h3 {
+
+    margin-top: 0;
+
+    margin-bottom: 12px;
+
+    color: #0f172a;
+
+}
+
+.featured-card {
+
+    border: 2px solid #f59e0b;
+
+    background: linear-gradient(to bottom right, #fff7ed, #ffffff);
+
+}
+
+.no-results {
+
+    background: white;
+
+    padding: 20px;
+
+    border-radius: 16px;
+
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+
+    color: #475569;
+
+    text-align: center;
+
+}
+
+strong {
+
+    color: #334155;
+
 }
