@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lets Eat</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}">
+</head>
+<body>
+    <h1>Lets Eat</h1>
+    <p>Your app is running.</p>
+
+    {% for restaurant in restaurants %}
+        <div class="restaurant-card">
+            <h2>{{ restaurant.name }}</h2>
+            <p><strong>Cuisine:</strong> {{ restaurant.cuisine }}</p>
+            <p><strong>Price:</strong> {{ restaurant.price }}</p>
+            <p><strong>Rating:</strong> {{ restaurant.rating }}</p>
+            <p><strong>Distance:</strong> {{ restaurant.distance }}</p>
+            <p><strong>Location:</strong> {{ restaurant.location }}</p>
+        </div>
+    {% endfor %}
+</body>
+</html>
