@@ -33,9 +33,3 @@ A simple web app that helps you decide where to eat by filtering restaurants and
 ```bash
 git clone https://github.com/AndrewFrizzell/LetsEat.git
 
-Future Improvements
-
-* Use real restaurant API data
-* Add location-based search
-* Save favorite restaurants
-* Improve mobile responsiveness
