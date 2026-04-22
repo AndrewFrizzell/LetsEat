@@ -69,6 +69,8 @@
                 <div class="button-row">
                     <button type="submit">Filter</button>
                     <button type="submit" name="pick" value="1" class="pick-button">Pick For Me</button>
+
+                    <a href="/" class="reset-button">Reset</a>
                 </div>
             </form>
         </section>
@@ -76,7 +78,7 @@
         <!--restaraunnt that is chose-->
         {% if chosen_restaurant %}
             <section class="picked-section">
-                <h2>🍽️ Your Pick</h2>
+                <h2>Your Pick</h2>
                 <div class="restaurant-card featured-card">
                     <h3>{{ chosen_restaurant.name }}</h3>
                     <p><strong>Cuisine:</strong> {{ chosen_restaurant.cuisine }}</p>
