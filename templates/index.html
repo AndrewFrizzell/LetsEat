@@ -22,9 +22,23 @@
         </select>
 
         <button type="submit">Filter</button>
+        <button type="submit" name="pick" value="1">Pick For Me</button>
     </form>
 
     <hr>
+
+    {% if chosen_restaurant %}
+        <h2>🍽️ Your Pick:</h2>
+        <div class="restaurant-card">
+            <h2>{{ chosen_restaurant.name }}</h2>
+            <p><strong>Cuisine:</strong> {{ chosen_restaurant.cuisine }}</p>
+            <p><strong>Price:</strong> {{ chosen_restaurant.price }}</p>
+            <p><strong>Rating:</strong> {{ chosen_restaurant.rating }}</p>
+            <p><strong>Distance:</strong> {{ chosen_restaurant.distance }} miles</p>
+            <p><strong>Location:</strong> {{ chosen_restaurant.location }}</p>
+        </div>
+        <hr>
+    {% endif %}
 
     {% if restaurants %}
         {% for restaurant in restaurants %}
