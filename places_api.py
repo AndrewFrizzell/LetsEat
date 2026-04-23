@@ -5,6 +5,23 @@ import math
 API_KEY = os.getenv("GOOGLE_PLACES_API_KEY")
 URL = "https://places.googleapis.com/v1/places:searchNearby"
 
+CUISINE_TYPE_MAP = {
+    "American": "restaurant",
+    "Mexican": "mexican_restaurant",
+    "Italian": "italian_restaurant",
+    "Japanese": "japanese_restaurant",
+    "Chinese": "chinese_restaurant",
+    "Indian": "indian_restaurant",
+    "BBQ": "barbecue_restaurant",
+}
+PRICE_MAP = {
+        "PRICE_LEVEL_FREE": 0,
+        "PRICE_LEVEL_INEXPENSIVE": 1,
+        "PRICE_LEVEL_MODERATE": 2,
+        "PRICE_LEVEL_EXPENSIVE": 3,
+        "PRICE_LEVEL_VERY_EXPENSIVE": 4,
+    }
+
 def calculate_distance_miles(lat1, lon1, lat2, lon2):
     # Radius of Earth in miles
     earth_radius = 3958.8
@@ -23,9 +40,14 @@ def calculate_distance_miles(lat1, lon1, lat2, lon2):
     return round(earth_radius * c, 1)
 
 
-def get_nearby_restaurants(latitude, longitude, radius=5000, max_results=20):
+def get_nearby_restaurants(latitude, longitude, radius=10000.0, max_results=20, cuisine=""):
     if not API_KEY:
         raise ValueError("Missing GOOGLE_PLACES_API_KEY environment variable")
+
+    normalized_cuisine = cuisine.strip().title()
+    included_type = CUISINE_TYPE_MAP.get(normalized_cuisine, "restaurant")
+    
+    print("Included type: ", included_type)
 
     headers = {
         "Content-Type": "application/json",
@@ -34,7 +56,7 @@ def get_nearby_restaurants(latitude, longitude, radius=5000, max_results=20):
     }
 
     body = {
-        "includedTypes": ["restaurant"],
+        "includedTypes": [included_type],
         "maxResultCount": max_results,
         "locationRestriction": {
             "circle": {
@@ -49,30 +71,20 @@ def get_nearby_restaurants(latitude, longitude, radius=5000, max_results=20):
 
     response = requests.post(URL, headers=headers, json=body, timeout=15)
 
-
     if response.status_code != 200:
         return []
 
     data = response.json()
     places = data.get("places", [])
-
-    price_map = {
-        "PRICE_LEVEL_FREE": 0,
-        "PRICE_LEVEL_INEXPENSIVE": 1,
-        "PRICE_LEVEL_MODERATE": 2,
-        "PRICE_LEVEL_EXPENSIVE": 3,
-        "PRICE_LEVEL_VERY_EXPENSIVE": 4,
-    }
-
     restaurants = []
 
     for place in places:
         name = place.get("displayName", {}).get("text", "Unknown")
-        cuisine = place.get("primaryType", "restaurant").replace("_", " ").title()
+        place_cuisine = place.get("primaryType", "restaurant").replace("_", " ").title()
         rating = place.get("rating")
         address = place.get("formattedAddress", "Unknown")
         raw_price = place.get("priceLevel")
-        price = price_map.get(raw_price, 2)
+        price = PRICE_MAP.get(raw_price, 2)
 
         place_location = place.get("location", {})
         place_lat = place_location.get("latitude")
@@ -85,7 +97,7 @@ def get_nearby_restaurants(latitude, longitude, radius=5000, max_results=20):
 
         restaurants.append({
             "name": name,
-            "cuisine": cuisine,
+            "cuisine": place_cuisine,
             "price": price,
             "rating": rating,
             "distance": distance,

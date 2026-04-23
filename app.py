@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from places_api import get_nearby_restaurants
+from places_api import get_nearby_restaurants, CUISINE_TYPE_MAP
 import random
 
 app = Flask(__name__)
@@ -18,21 +18,24 @@ def home():
     try:
         latitude = float(lat)
         longitude = float(lon)
-    except:
+    except (TypeError, ValueError):
         latitude = 29.5688
         longitude = -97.9647
 
-    #seguin test location
-    restaurants = get_nearby_restaurants(latitude, longitude)
+    api_radius = 10000.0
+
+    print("Selected cuisine:", selected_cuisine)
+    print("selected cuisine: ", repr(selected_cuisine))
+
+    restaurants = get_nearby_restaurants(
+        latitude=latitude,
+        longitude=longitude,
+        radius=api_radius,
+        max_results=20,
+        cuisine=selected_cuisine
+    )
 
     filtered_restaurants = restaurants
-
-    #Filterd cuisine
-    if selected_cuisine:
-        filtered_restaurants = [
-            r for r in filtered_restaurants
-            if r["cuisine"] == selected_cuisine
-        ]
     
     #filter price
     if max_price:
@@ -58,7 +61,7 @@ def home():
             if r["distance"] <= max_distance
         ]
 
-    cusisines = sorted(set(r["cuisine"] for r in restaurants))
+    cuisines = list(CUISINE_TYPE_MAP.keys())
 
     chosen_restaurant = None
 
@@ -70,7 +73,7 @@ def home():
     return render_template(
         "index.html",
          restaurants=filtered_restaurants,
-         cuisines=cusisines,
+         cuisines=cuisines,
          selected_cuisine=selected_cuisine,
          max_price=str(max_price) if max_price else "",
          min_rating=str(min_rating) if min_rating else "",
