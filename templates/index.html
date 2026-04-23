@@ -17,6 +17,13 @@
         <!--filter panel-->
         <section class="filter-panel">
             <form method="GET" action="/">
+                <input type="hidden" name="lat" value="{{ lat }}">
+                <input type="hidden" name="lon" value="{{ lon }}">
+                {% if lat and lon %}
+                <p style="text-align: center; color:#2563eb;">
+                    📍 Using your current location
+                </p>
+                {% endif %}
                 <div class="form-row">
                     <div class="form-group">
                         <!--cuisine filter-->
@@ -69,7 +76,7 @@
                 <div class="button-row">
                     <button type="submit">Filter</button>
                     <button type="submit" name="pick" value="1" class="pick-button">Pick For Me</button>
-
+                    <button type="button" onclick="useMyLocation()">Use My Location</button>
                     <a href="/" class="reset-button">Reset</a>
                 </div>
             </form>
@@ -127,5 +134,31 @@
             {% endif %}
         </section>
     </div>
+    <script>
+        function useMyLocation() {
+            if (!navigator.geolocation) {
+                alert("Geolocation is not supported by your browser");
+                return
+            }
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+
+                    const params = new URLSearchParams(window.location.search);
+
+                    params.set("lat", lat);
+                    params.set("lon", lon);
+
+                    window.location.href = "/?" + params.toString();
+                },
+                function(error) {
+                    alert("Unable to get your location.");
+                    console.error(error)
+                }
+            
+            );
+        }
+    </script>
 </body>
 </html>

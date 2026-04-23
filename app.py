@@ -12,8 +12,18 @@ def home():
     max_distance = request.args.get("distance", "")
     pick_random = request.args.get("pick")
 
+    lat = request.args.get("lat")
+    lon = request.args.get("lon")
+
+    try:
+        latitude = float(lat)
+        longitude = float(lon)
+    except:
+        latitude = 29.5688
+        longitude = -97.9647
+
     #seguin test location
-    restaurants = get_nearby_restaurants(29.5688, -97.9647)
+    restaurants = get_nearby_restaurants(latitude, longitude)
 
     filtered_restaurants = restaurants
 
@@ -65,7 +75,9 @@ def home():
          max_price=str(max_price) if max_price else "",
          min_rating=str(min_rating) if min_rating else "",
          max_distance=str(max_distance) if max_distance else "",
-         chosen_restaurant=chosen_restaurant
+         chosen_restaurant=chosen_restaurant,
+         lat=lat if lat else "",
+         lon=lon if lon else ""
          )
 
 if __name__ == "__main__":

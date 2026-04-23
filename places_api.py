@@ -49,8 +49,6 @@ def get_nearby_restaurants(latitude, longitude, radius=5000, max_results=20):
 
     response = requests.post(URL, headers=headers, json=body, timeout=15)
 
-    print("STATUS:", response.status_code)
-    print("RESPONSE:", response.text)
 
     if response.status_code != 200:
         return []
