@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from restaurants import restaurants
+from places_api import get_nearby_restaurants
 import random
 
 app = Flask(__name__)
@@ -11,6 +11,9 @@ def home():
     min_rating = request.args.get("rating", "")
     max_distance = request.args.get("distance", "")
     pick_random = request.args.get("pick")
+
+    #seguin test location
+    restaurants = get_nearby_restaurants(29.5688, -97.9647)
 
     filtered_restaurants = restaurants
 

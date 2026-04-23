@@ -83,8 +83,21 @@
                     <h3>{{ chosen_restaurant.name }}</h3>
                     <p><strong>Cuisine:</strong> {{ chosen_restaurant.cuisine }}</p>
                     <p><strong>Price:</strong> {{ "$" * chosen_restaurant.price }}</p>
-                    <p><strong>Rating:</strong> {{ chosen_restaurant.rating }}</p>
-                    <p><strong>Distance:</strong> {{ chosen_restaurant.distance }} miles</p>
+                    <p><strong>Rating:</strong>
+    {% if chosen_restaurant.rating is not none %}
+        {{ chosen_restaurant.rating }}
+    {% else %}
+        N/A
+    {% endif %}
+</p>
+
+<p><strong>Distance:</strong>
+    {% if chosen_restaurant.distance is not none %}
+        {{ chosen_restaurant.distance }} miles
+    {% else %}
+        N/A
+    {% endif %}
+</p>
                     <p><strong>Location:</strong> {{ chosen_restaurant.location }}</p>
                 </div>
             </section>
